@@ -26,14 +26,31 @@ Número de telefone válido.
 Número de telefone inválido.
 
 '''
+# Módulo 're' que fornece operações com expressões regulares.
+import re
 
-def validar_telefone(telefone):
-    if len(telefone) != 16:
-        return "Número de telefone inválido."
-    elif telefone[0] != "(" or telefone[3] != ")" or telefone[5] != " " or telefone[10] != "-":
-        return "Número de telefone inválido."
-    elif not telefone[1:3].isnumeric() or not telefone[6:10].isnumeric() or not telefone[11:].isnumeric():
-        return "Número de telefone inválido."
+# Função chamada 'validate_numero_telefone' que aceita um argumento 'phone_number':
+def validate_numero_telefone(phone_number):
+   
+    # Padrão de expressão regular (regex) para validar números de telefone no formato (XX) 9XXXX-XXXX:
+    pattern = r"\(\d{2}\) \d{5}-\d{4}"
+   
+    # A função 're.match()' verifica se o padrão definido corresponde ao número de telefone fornecido.
+    # O 're.match()' retorna um objeto 'match' se houver correspondência no início da string, caso contrário, retorna 'None'.
+    if re.match(pattern, phone_number):  
+        
+        # Retorna que o número de telefone é válido:
+        return "Número de telefone válido."
+       
+    # Caso o número de telefone seja inválido:
     else:
-    return "Número de telefone válido."
+        return "Número de telefone inválido."
 
+# Solicita ao usuário que insira um número de telefone e armazena o valor fornecido na variável 'phone_number'.
+phone_number = input()  
+
+# Chama a função 'validate_numero_telefone()' com o número de telefone fornecido como argumento e armazena o resultado retornado na variável 'result'.
+result = validate_numero_telefone(phone_number)
+
+# Imprime o resultado:
+print(result)
